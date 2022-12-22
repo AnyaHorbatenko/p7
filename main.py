@@ -144,10 +144,10 @@ def interactive(file_name):
 #1
                 if int(year) < int(first_year):
                     first_year = year
-                    first_city = city
-                counter_games += 1
+                    first_city = city             
                 if year not in stats:
                     stats[year] = [0, 0, 0]
+                    counter_games += 1
                 if medal == "Gold":
                     stats[year][0] += 1
                 if medal == "Silver":
@@ -165,9 +165,9 @@ def interactive(file_name):
     First participation was in {first_year} in {first_city}
     The most successful olympiad:
     """)
-    {run_overall(args.filename, args.output, list(user_input.split(" ")), max)}
+    run_overall(args.filename, args.output, list(user_input.split(" ")), max)
     print("The most unsuccessful olympiad:")
-    {run_overall(args.filename, args.output, list(user_input.split(" ")), min)}
+    run_overall(args.filename, args.output, list(user_input.split(" ")), min)
     print(f"""That team had in avarage {G_total/counter_games} Gold medals, {S_total/counter_games} Silver medals, {G_total/counter_games} Bronze medals
     """)
 
