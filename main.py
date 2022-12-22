@@ -170,3 +170,14 @@ def interactive(file_name):
     {run_overall(args.filename, args.output, list(user_input.split(" ")), min)}
     print(f"""That team had in avarage {G_total/counter_games} Gold medals, {S_total/counter_games} Silver medals, {G_total/counter_games} Bronze medals
     """)
+
+
+
+if args.medals == True:
+    medals(args.filename, args.output)
+elif args.total == True:
+    total(args.filename, args.output)
+elif args.overall == True:
+    run_overall(args.filename, args.output, list(args.country.split(",")), max)
+elif args.interactive == True:
+    interactive(args.filename)
