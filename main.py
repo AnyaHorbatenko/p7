@@ -87,3 +87,39 @@ def total(filename, write_result):
                     print(f"{i} - {total[i][0]} Gold - {total[i][1]} Silver - {total[i][2]} Bronze")
                     if args.output != None:
                         result_file.write(f'{i} - {total[i][0]} Gold - {total[i][1]} Silver - {total[i][2]} Bronze\n')
+
+def run_overall(file_name, write_result, countries, varilable):
+    country_list = countries
+    dictionary_overall = {}
+    exist_country = 0
+    results = {}
+    for i in country_list:
+        with open(file_name, "r") as file:
+            head = file.readline()
+            lines = file.readlines()
+            for line in lines:
+                data = line.split("\t")
+                country = data[6]  #uses full name of country
+                year = data[9]
+                medal = data[14].rstrip("\n")
+                if country == i:
+                    exist_country += 1
+                    if year not in dictionary_overall:
+                        dictionary_overall[year] = 0
+                    if len(medal) > 3:
+                        dictionary_overall[year] += 1
+            if exist_country > 0:
+                max_val = max(dictionary_overall.values())
+                list_of_key = list(dictionary_overall.keys())
+                list_of_value = list(dictionary_overall.values())
+                position = list_of_value.index(max(dictionary_overall.values()))
+                results[i] = f"in year {list_of_key[position]} received {varilable(dictionary_overall.values())} medals"
+    if args.output != None:
+        result_file = open(write_result, "w")
+    if exist_country < 1:
+        print("Wrong country")
+    else:
+        for i in results:
+            if args.output != None:
+                result_file.write(f'{i} {results[i]}\n')
+            print(f"{i} {results[i]}")
