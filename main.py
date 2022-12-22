@@ -112,7 +112,7 @@ def run_overall(file_name, write_result, countries, varilable):
                 max_val = max(dictionary_overall.values())
                 list_of_key = list(dictionary_overall.keys())
                 list_of_value = list(dictionary_overall.values())
-                position = list_of_value.index(max(dictionary_overall.values()))
+                position = list_of_value.index(varilable(dictionary_overall.values()))
                 results[i] = f"in year {list_of_key[position]} received {varilable(dictionary_overall.values())} medals"
     if args.output != None:
         result_file = open(write_result, "w")
