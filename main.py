@@ -56,3 +56,34 @@ def medals(file_name, write_result):
         print(int(len(silver_list) / 3), "Silver medals")
         print(int(len(bronze_list) / 3), "Bronze medals")
 
+def total(filename, write_result):
+    total = {}
+    counter_year = 0
+    with open(filename, "r") as file:
+        head = file.readline()
+        lines = file.readlines()
+        for line in lines:
+            data = line.split("\t")
+            country = data[7]
+            year = data[9]
+            medal = data[14].rstrip("\n")
+            if year == args.year:
+                counter_year += 1
+                if country not in total:
+                    total[country] = [0, 0, 0]
+                if medal == "Gold":
+                    total[country][0] += 1
+                if medal == "Silver":
+                    total[country][1] += 1
+                if medal == "Bronze":
+                    total[country][2] += 1
+        if counter_year < 1:
+            print("No olympiad was held this year")
+        else:
+            if args.output != None:
+                result_file = open(write_result, "w")
+            for i in total:
+                if total[i][0] + total[i][1] + total[i][2] > 0:
+                    print(f"{i} - {total[i][0]} Gold - {total[i][1]} Silver - {total[i][2]} Bronze")
+                    if args.output != None:
+                        result_file.write(f'{i} - {total[i][0]} Gold - {total[i][1]} Silver - {total[i][2]} Bronze\n')
