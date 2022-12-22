@@ -123,3 +123,50 @@ def run_overall(file_name, write_result, countries, varilable):
             if args.output != None:
                 result_file.write(f'{i} {results[i]}\n')
             print(f"{i} {results[i]}")
+
+def interactive(file_name):
+    counter_games = 0
+    stats = {}
+    first_year = 2022
+    first_city = ""
+    user_input = input("Write name/code Country: ")
+    with open(file_name, "r") as file:
+        head = file.readline()
+        lines = file.readlines()
+        for line in lines:
+            data = line.split("\t")
+            country = data[6]
+            country_code = data[7]
+            city = data[11]
+            year = data[9]
+            medal = data[14].rstrip("\n")
+            if user_input in country or user_input in country_code:
+#1
+                if int(year) < int(first_year):
+                    first_year = year
+                    first_city = city
+                counter_games += 1
+                if year not in stats:
+                    stats[year] = [0, 0, 0]
+                if medal == "Gold":
+                    stats[year][0] += 1
+                if medal == "Silver":
+                    stats[year][1] += 1
+                if medal == "Bronze":
+                    stats[year][2] += 1
+    G_total = 0
+    S_total = 0
+    B_total = 0
+    for i in stats:
+        G_total += stats[year][0]
+        S_total += stats[year][1]
+        B_total += stats[year][2]
+    print(f"""
+    First participation was in {first_year} in {first_city}
+    The most successful olympiad:
+    """)
+    {run_overall(args.filename, args.output, list(user_input.split(" ")), max)}
+    print("The most unsuccessful olympiad:")
+    {run_overall(args.filename, args.output, list(user_input.split(" ")), min)}
+    print(f"""That team had in avarage {G_total/counter_games} Gold medals, {S_total/counter_games} Silver medals, {G_total/counter_games} Bronze medals
+    """)
